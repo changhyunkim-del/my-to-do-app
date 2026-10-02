@@ -1,0 +1,312 @@
+/* 기본 초기화 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 페이지 전체: 연한 배경 위에 카드를 가로 중앙 배치 */
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 80px 16px 16px;
+    font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+    background: #f3f4f8;
+    color: #1f2333;
+}
+
+/* 카드: 최대 너비 500px, 둥근 모서리와 부드러운 그림자 */
+.todo-card {
+    width: 100%;
+    max-width: 500px;
+    padding: 32px 28px;
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(31, 35, 51, 0.08);
+}
+
+/* 제목: 아이콘과 글자를 가로 중앙에 나란히 배치 */
+.title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 24px;
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.title-icon {
+    flex-shrink: 0;
+    width: 1.3em;
+    height: 1.3em;
+    color: #5b6cff;
+}
+
+/* 입력창 + 추가 버튼 한 줄 배치 */
+.todo-input {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.todo-input input {
+    flex: 1;
+    min-width: 0;
+    padding: 12px 16px;
+    font-size: 1rem;
+    font-family: inherit;
+    color: inherit;
+    background: #f7f8fb;
+    border: 1px solid #e2e4ec;
+    border-radius: 12px;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.todo-input input:focus {
+    background: #ffffff;
+    border-color: #5b6cff;
+}
+
+.btn-add {
+    padding: 0 20px;
+    font-size: 1rem;
+    font-family: inherit;
+    font-weight: 600;
+    color: #ffffff;
+    background: #5b6cff;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-add:hover {
+    background: #4655e8;
+}
+
+.btn-add:focus-visible {
+    outline: 3px solid rgba(91, 108, 255, 0.35);
+    outline-offset: 2px;
+}
+
+/* 입력창 아래 안내 메시지 (중복 등록 등) */
+.input-message {
+    margin: -12px 0 16px;
+    padding-left: 4px;
+    font-size: 0.875rem;
+    color: #e5484d;
+}
+
+.input-message:empty {
+    display: none;
+}
+
+/* 개수 요약(왼쪽) + 완료 항목 삭제 버튼(오른쪽) */
+.todo-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+/* 전체/완료 개수 요약 */
+.todo-stats {
+    display: flex;
+    gap: 8px;
+}
+
+.stat {
+    padding: 6px 12px;
+    font-size: 0.9rem;
+    color: #5f6478;
+    background: #f3f4f8;
+    border-radius: 999px;
+}
+
+.stat strong {
+    margin-left: 4px;
+    color: #1f2333;
+}
+
+.stat-done strong {
+    color: #5b6cff;
+}
+
+/* 완료 항목 일괄 삭제 버튼 (완료 항목이 없으면 비활성) */
+.btn-clear-done {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+    font-family: inherit;
+    font-weight: 600;
+    color: #e5484d;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.btn-clear-done:hover:not(:disabled) {
+    background: #fff0f0;
+    border-color: #e5484d;
+}
+
+.btn-clear-done:disabled {
+    color: #c4c7d4;
+    cursor: default;
+}
+
+.btn-clear-done:focus-visible {
+    outline: 3px solid rgba(229, 72, 77, 0.3);
+    outline-offset: 1px;
+}
+
+/* 필터: 세 칸짜리 탭 */
+.todo-filters {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 16px;
+    padding: 4px;
+    background: #f3f4f8;
+    border-radius: 12px;
+}
+
+.filter-btn {
+    flex: 1;
+    padding: 8px 0;
+    font-size: 0.9rem;
+    font-family: inherit;
+    font-weight: 600;
+    color: #5f6478;
+    background: transparent;
+    border: none;
+    border-radius: 9px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.filter-btn:hover {
+    color: #1f2333;
+}
+
+/* 선택된 필터 */
+.filter-btn[aria-pressed="true"] {
+    color: #5b6cff;
+    background: #ffffff;
+    box-shadow: 0 1px 4px rgba(31, 35, 51, 0.08);
+}
+
+.filter-btn:focus-visible {
+    outline: 3px solid rgba(91, 108, 255, 0.35);
+    outline-offset: 1px;
+}
+
+/* 할 일 목록 */
+.todo-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* 목록이 비어 있을 때 안내 문구 (필터에 따라 main.js가 data-empty에 넣어 줌) */
+.todo-list:empty::before {
+    content: attr(data-empty);
+    display: block;
+    padding: 28px 0;
+    text-align: center;
+    color: #9a9fb2;
+    font-size: 0.95rem;
+}
+
+/* 할 일 한 줄: [체크박스] [텍스트] [수정/삭제] */
+.todo-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    background: #f7f8fb;
+    border-radius: 12px;
+}
+
+.todo-check {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    accent-color: #5b6cff;
+    cursor: pointer;
+}
+
+.todo-text {
+    flex: 1;
+    min-width: 0;
+    word-break: break-all;
+}
+
+/* 완료된 항목: 텍스트에만 취소선 + 흐린 글자 */
+.todo-item.done .todo-text {
+    color: #9a9fb2;
+    text-decoration: line-through;
+}
+
+/* 수정 중일 때 텍스트 대신 보이는 입력창 */
+.todo-edit-input {
+    flex: 1;
+    min-width: 0;
+    padding: 6px 10px;
+    font-size: 1rem;
+    font-family: inherit;
+    color: inherit;
+    background: #ffffff;
+    border: 1px solid #5b6cff;
+    border-radius: 8px;
+    outline: none;
+}
+
+/* 우측 수정/삭제 버튼 */
+.todo-actions {
+    display: flex;
+    flex-shrink: 0;
+    gap: 6px;
+}
+
+.btn-small {
+    padding: 6px 10px;
+    font-size: 0.85rem;
+    font-family: inherit;
+    font-weight: 600;
+    background: #ffffff;
+    border: 1px solid #e2e4ec;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.btn-small:focus-visible {
+    outline: 3px solid rgba(91, 108, 255, 0.35);
+    outline-offset: 1px;
+}
+
+.btn-edit {
+    color: #5b6cff;
+}
+
+.btn-edit:hover {
+    background: #eef0ff;
+    border-color: #5b6cff;
+}
+
+.btn-delete {
+    color: #e5484d;
+}
+
+.btn-delete:hover {
+    background: #fff0f0;
+    border-color: #e5484d;
+}

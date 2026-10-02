@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>나의 할 일 목록</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="main.js" defer></script>
+</head>
+<body>
+    <main class="todo-card">
+        <h1 class="title">
+            <!-- 체크 표시가 있는 클립보드 아이콘 (장식용이라 스크린 리더에서 숨김) -->
+            <svg class="title-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <rect x="5" y="4" width="14" height="17" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/>
+                <rect x="9" y="2" width="6" height="4" rx="1.2" fill="#ffffff" stroke="currentColor" stroke-width="2"/>
+                <path d="M8.5 13l2.5 2.5 4.5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            나의 할 일 목록
+        </h1>
+
+        <!-- 입력 영역: 추가 버튼 클릭 또는 Enter로 제출 -->
+        <form id="todo-form" class="todo-input">
+            <input id="todo-text" type="text" placeholder="할 일을 입력하세요" aria-label="할 일" autocomplete="off">
+            <button id="add-btn" type="submit" class="btn-add">추가</button>
+        </form>
+
+        <!-- 중복 등록 등 안내 메시지 (비어 있으면 숨김) -->
+        <p id="input-message" class="input-message" role="alert"></p>
+
+        <!-- 전체/완료 개수 요약 + 완료 항목 일괄 삭제 -->
+        <div class="todo-toolbar">
+            <div class="todo-stats" aria-live="polite">
+                <span class="stat">전체 <strong id="total-count">0</strong></span>
+                <span class="stat stat-done">완료 <strong id="done-count">0</strong></span>
+            </div>
+            <button id="clear-done-btn" type="button" class="btn-clear-done" disabled>완료 항목 삭제</button>
+        </div>
+
+        <!-- 필터: 전체 / 미완료 / 완료 -->
+        <div class="todo-filters" role="group" aria-label="할 일 필터">
+            <button type="button" class="filter-btn" data-filter="all" aria-pressed="true">전체</button>
+            <button type="button" class="filter-btn" data-filter="active" aria-pressed="false">미완료</button>
+            <button type="button" class="filter-btn" data-filter="done" aria-pressed="false">완료</button>
+        </div>
+
+        <!-- 할 일 목록: 항목은 <li class="todo-item">, 완료 항목은 <li class="todo-item done"> -->
+        <ul id="todo-list" class="todo-list"></ul>
+    </main>
+</body>
+</html>
